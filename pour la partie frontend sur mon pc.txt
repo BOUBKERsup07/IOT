@@ -1,0 +1,76 @@
+pour la partie frontend sur mon pc: j'ai réaliser ca: PerfuSafe — état actuel du projet (où tu en es)
+
+1) Frontend (Next.js) — OK et structuré
+
+- Stack : Next.js App Router, TypeScript, Tailwind, Framer Motion, Recharts/ApexCharts.
+- Pages principales :
+  - Landing : landing/page.tsx (logo + bouton dashboard + nom utilisateur affiché)
+  - Auth :
+    - Login : login/page.tsx
+    - Register : register/page.tsx (création Firebase Auth + création profil Firestore)
+  - Dashboard :
+    - Home : dashboard/page.tsx
+    - Benchmark : benchmark/page.tsx
+    - Système RPi : systeme/page.tsx
+    - Patients : patients/page.tsx
+    - Planning : schedule/page.tsx
+    - Settings : settings/page.tsx
+2) Auth + RBAC (Rôles & permissions) — OK côté frontend
+
+- Rôles gérés via Firestore users/{uid} + permissions stockées côté client.
+- Hook central : usePermission.ts
+  - Corrigé pour éviter les erreurs d’hydration (lecture localStorage après montage).
+- Navigation et accès pages :
+  - Benchmark/Systeme masqués si non autorisés (Infirmière n’y accède pas).
+  - Les pages /dashboard/benchmark et /dashboard/systeme redirigent si pas autorisé.
+3) Firestore (base de données) — OK, données réelles
+
+- Collections utilisées maintenant :
+  - users : profils + role + permissions (+ settings)
+  - patients : ajout/lecture/maj en temps réel
+  - interventions : planning réel
+  - alertes : utilisé pour lien IoMT → intervention urgente (si activé)
+- Important : les règles Firestore doivent inclure patients + interventions (sinon “insufficient permissions”).
+   Fichier : firestore.rules
+4) Fonctionnalités “réelles” déjà actives
+
+- Patients :
+  - CRUD partiel : ajout + lecture + update statut (stable/critique) via Firestore.
+  - Popup d’ajout + recherche : patients/page.tsx
+- Planning :
+  - Lecture Firestore + ajout intervention via popup.
+  - Sélection patient/chambre depuis Firestore (listes).
+  - Fix index composite : requête sans index requis + tri côté front.
+  - Vue “Tout voir” + debug dates : schedule/page.tsx
+- Settings :
+  - Profil réel + toggles sauvegardés dans Firestore users/{uid}.settings .
+  - Admin : gestion utilisateurs (liste + changement rôle).
+     Fichier : settings/page.tsx
+- Dashboard :
+  - Boutons maintenant fonctionnels :
+    - “Rapport Patient / Rapport complet” : génère un fichier .txt (et .csv pour admin) depuis les données disponibles.
+    - “Test Manuel” : popup de test (démo).
+       Fichier : dashboard/page.tsx
+- Benchmark :
+  - Récupère /benchmark/modeles et /benchmark/strategies , et normalise les champs pour afficher la bande passante.
+     Fichier : benchmark/page.tsx
+5) Ce qui bloque / reste à finaliser
+
+- Backend Raspberry Pi (FastAPI) :
+  - Tu as encore des 401 Unauthorized sur /systeme (et parfois d’autres endpoints) car ton API RPi ne valide pas encore correctement le token Firebase.
+  - Pour être “100% réel end-to-end”, il faut :
+    - Soit adapter le backend RPi pour accepter le token Firebase (solution firebase-admin ).
+    - Soit revenir à un token “backend” (mais tu as choisi Firebase).
+- Prédiction manuelle “réelle” :
+  - Actuellement le “Test Manuel” est une démo côté front.
+  - Il manque un endpoint RPi du type POST /predict pour faire une vraie prédiction TinyML côté backend.
+- Rapports “réels” :
+  - Actuellement export généré côté front (texte/CSV).
+  - Si tu veux un vrai rapport clinique, il faut un endpoint backend (ex: /report/patient/{id} ).
+6) Qualité / stabilité
+
+- Le build passe : npm run build OK (tu as une base stable).
+- Hydration mismatch corrigé côté permissions.
+- Index composite Firestore évité dans interventions .
+
+Pour la partie Raspberry Pi 4

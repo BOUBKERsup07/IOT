@@ -1,0 +1,67 @@
+Nous avons travaillé avec deux sources : 
+des données simulées Python (1000 échantillons, 9.4% anomalies) pour entraîner nos modèles, 
+et le dataset public NAB (12 096 lignes, 0.9% anomalies réelles) pour valider nos modèles 
+sur des données réelles. 
+
+La combinaison des deux nous a permis d'atteindre 100% sur simulé et 99.1% sur NAB."
+
+
+Pour les données simulées, nous avons généré 1000 échantillons avec NumPy en contrôlant précisément les valeurs normales et anormales. 
+Pour le dataset NAB, nous avons fait une normalisation des valeurs, un étiquetage automatique des anomalies par seuil statistique (moyenne ± 2 écarts-types), 
+et une sélection des features pertinentes. 
+Ensuite pour les deux datasets nous avons fait un split train/test 80%/20% avant d'entraîner les modèles."
+
+
+
+mais je vois que tu ma donnez seulement le nab , pour l'autre " data simuler" est ce que on doit faire la meme chose ou on a déja fait 
+
+comment expliquer c'est graphe : 
+
+d'apres ce projet tous si le prof pause la question vous avez retenu quoi ? donnez moi une réponse pour bien argumenter que le prof valide ! 
+
+
+
+
+
+Slide 7 — Sélection des datasets
+
+"Nous avons utilisé deux sources de données. La première, nous l'avons créée nous-mêmes : 1 000 données. La deuxième s'appelle NAB : 12 096 données. Total : 13 096 données."
+
+
+Slide 8 — Données simulées
+
+"Nous avons simulé une pompe. Le débit normal est 80 ml par heure. La pression normale est 100 mmHg. Si les valeurs sortent de ces limites, c'est une anomalie. Nous avons 94 anomalies sur 1 000 données."
+
+
+Slide 9 — Visualisation des anomalies
+
+"Voici un graphique. Les points rouges sont les anomalies. Nous voyons clairement que les anomalies sont différentes des données normales."
+
+
+Slide 10 — Dataset NAB
+
+"NAB est un dataset officiel. Notre module demandait d'utiliser NAB. Il contient 12 096 données réelles. Il y a 108 anomalies. Le taux d'anomalie est 0.9%."
+
+
+Slide 29,30,31 — Application PerfuSafe
+
+"Nous avons aussi fait une vraie application web. Elle s'appelle PerfuSafe. Le backend est sur le Raspberry Pi avec FastAPI. 
+Le frontend utilise React. On peut se connecter VIA FIREBASE ."
+
+
+
+
+
+Slide 10 — Pipeline de préparation
+
+"Avant d'utiliser les données, nous faisons 3 étapes. Étape 1 : normalisation. Étape 2 : on marque chaque donnée normale ou anomalie. Étape 3 : on divise en 80% pour entraîner et 20% pour tester."
+
+
+Slide 11 — Entraînement
+
+"Nous avons entraîné nos 3 modèles. Voici les résultats. La régression logistique et l'arbre de décision sont très bons. Le seuil simple est moins bon sur NAB."
+
+
+Slide 12 — Benchmark
+
+"Voici le benchmark complet. Nous comparons les 3 modèles sur 6 critères : précision, RAM, temps, énergie, transmissions et score global."

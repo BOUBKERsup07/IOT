@@ -1,0 +1,112 @@
+ssh groupe6@groupe6-iot.local
+iot2025
+cd ~/projet_iot
+source iot_env/bin/activate
+streamlit run dashboard/app_streamlit.py --server.address=0.0.0.0 --server.port=8501
+
+sudo shutdown -h now
+
+pour activer les alerts:
+cd ~/projet_iot
+source iot_env/bin/activate
+python data/collecte_live.py
+
+
+uvicorn api.main:app --host 0.0.0.0 --port 8000 --reload
+http://192.168.213.146:8000/docs#/default/get_energie_energie_get
+
+
+Solution définitive pour l'IP 👇
+Chaque fois que vous démarrez une session tapez juste :
+bashhostname -I
+Et mettez à jour .env.local avec la nouvelle IP. C'est plus simple que l'IP fixe ! 🎯
+
+
+
+je veux que tu m'ajouter un benchmark, plus ca je veux faire les diagramme de classe , use case, diagramme de séquence. dans moi le code pour ajouter sur https://www.planttext.com/
+pour l'app, pour être plus développer je veux ajouter l'authentification(sécurité), avec un page de garde qui présente bien notre projet , pour bien attire les jury , bien marketé notre projet pour ganger ne me donnez aucun code pour le moment je veux savoir comment le faire , on a déjà fait le dashboard avec streamlit , mais je vois pas suffisant pour ganger une compétition 
+
+Streamlit sur RPi ✅
+Gardez-le pour :
+
+Démonstration technique sur le RPi directement
+Montrer au prof que ça tourne sur Edge Device
+Backup si le réseau coupe
+
+
+PerfuSafe React sur PC ✅
+Gardez-le pour :
+
+Impressionner le jury visuellement
+Authentification JWT professionnelle
+Graphiques animés temps réel
+Interface marketing du projet
+
+Comment les présenter ensemble au jury 👇
+Étape 1 — Montrez PerfuSafe React
+         → Login sécurisé JWT
+         → Dashboard animé professionnel
+         → Graphiques temps réel depuis RPi
+
+Étape 2 — Montrez le RPi physiquement
+         → "Tout tourne sur ce petit appareil"
+         → Ouvrez Streamlit sur écran RPi
+         → Montrez les mesures énergétiques
+
+Étape 3 — Montrez le code sur VS Code
+         → FastAPI sur RPi
+         → Modèles TinyML
+         → Architecture 4 couches
+
+Toutes les 2 secondes :
+
+1. collecte_live.py génère une mesure
+         ↓
+2. Arbre de Décision analyse la mesure
+         ↓
+3. Stratégie S3 décide si on transmet
+         ↓
+4. data_live.json mis à jour
+         ↓
+5. FastAPI /live retourne les données
+         ↓
+6. React lit et affiche
+         ↓
+7. Si anomalie → ALERTE ROUGE sur dashboard
+         ↓
+8. Infirmière/Médecin voit l'alerte
+         ↓
+9. Action médicale immédiate
+
+Résumé visuel 👇
+Fonctionnalité      Admin    Médecin     Infirmière
+Dashboard temps réel✅✅✅
+Alertes anomalies✅✅✅
+Historique alertes✅ Complet✅ 24h✅ 2h
+Benchmark modèles✅✅❌
+État système RPi✅❌❌
+Télécharger rapport✅✅❌
+Prédiction manuelle✅✅❌
+Gestion utilisateurs✅❌❌
+Config API✅❌❌
+
+pour l'authentification je veux quelque chose réel, pas le partien ou l'inférmiere ou l'admin peux voir leur mots de passe 
+
+
+perfusafe2025
+admin
+<div className="grid grid-cols-3 gap-2 text-xs text-center">
+            <div className="text-gray-600">
+              <div className="text-gray-400 font-medium">Admin</div>
+              <div>admin</div>
+              <div>perfusafe2025</div>
+            </div>
+            <div className="text-gray-600">
+              <div className="text-gray-400 font-medium">Médecin</div>
+              <div>medecin</div>
+              <div>medecin123</div>
+            </div>
+            <div className="text-gray-600">
+              <div className="text-gray-400 font-medium">Infirmière</div>
+              <div>infirmiere</div>
+              <div>infirmiere123</div>
